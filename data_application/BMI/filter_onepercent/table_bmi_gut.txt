@@ -1,0 +1,5 @@
+"dataset"	"method"	"mse"	"stability"
+"bmi_gut"	"lasso"	24.07	0.14
+"bmi_gut"	"elent"	25.33	0.23
+"bmi_gut"	"rf"	4.99	0.02
+"bmi_gut"	"compLasso"	21.59	0.22

@@ -1,0 +1,5 @@
+"dataset"	"method"	"mse"	"stability"
+"soil_88"	"lasso"	0.34	0.31
+"soil_88"	"elent"	0.23	0.16
+"soil_88"	"rf"	0.26	0.04
+"soil_88"	"compLasso"	0.46	0.39
