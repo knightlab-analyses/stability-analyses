@@ -2,6 +2,7 @@
 ### apply different feature selection methods to simulated data #######################
 #######################################################################################
 
+<<<<<<< HEAD
 #' library(FSA) # for se()
 #' source('cv_method.R') 
 #' source('getStability.R')
@@ -20,6 +21,11 @@
 #' @param pval_thr The threshold for the estimated p value of RF importance scores.
 #' @param method.perm The permutation method for estimating the p value of RF importance scores.
 #' @details 
+=======
+# library(FSA) # for se()
+# source('cv_method.R') 
+# source('getStability.R')
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 
 sim_evaluate_cv = function(sim_file, method, seednum=31, ratio.training=0.8, fold.cv=10, family='gaussian',
 	                       lambda.grid=exp(seq(-4, -2, 0.2)), alpha.grid=seq(0.1, 0.9, 0.1), 
@@ -77,8 +83,13 @@ sim_evaluate_cv = function(sim_file, method, seednum=31, ratio.training=0.8, fol
 	}
 
 	# store results
+<<<<<<< HEAD
 	FP = paste(mean(fp), '(', round(se(fp),2), ')') # FPR?
 	FN = paste(mean(fn), '(', round(se(fn),2), ')') # FNR?
+=======
+	FP = paste(mean(fp), '(', round(se(fp),2), ')')
+	FN = paste(mean(fn), '(', round(se(fn),2), ')')
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 	MSE = paste(round(mean(mse, na.rm=T),2), '(', round(se(mse, na.rm=T),2), ')')
 	Stab = round(getStability(stability.table)$stability, 2)
 

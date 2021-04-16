@@ -16,6 +16,7 @@ library(ranger) # faster random forest
 ###########################################
 #### Lasso (tune lambda) ##################
 ###########################################
+<<<<<<< HEAD
 #' @title lasso_cv
 #' @description Does a K-fold cross-validation for Lasso.
 #' @param datx The input data matrix.
@@ -27,6 +28,8 @@ library(ranger) # faster random forest
 #' @param lambda.grid The tuning range for the regularization parameter "lambda" of "lasso".
 #' @return A list of Lasso model output including MSE, and selected features.
 
+=======
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 lasso_cv = function(datx, y, seednum=31, family=family, ratio.training=0.8, fold.cv=10, 
 					lambda.grid, lambda.choice='lambda.1se'){
 	# seednum: the seed number
@@ -70,6 +73,7 @@ lasso_cv = function(datx, y, seednum=31, family=family, ratio.training=0.8, fold
 # reference 2 (extract final model and prediction with caret)
 ## https://topepo.github.io/caret/model-training-and-tuning.html
 
+<<<<<<< HEAD
 #' @title elnet_cv
 #' @description Does a K-fold cross-validation for elastic-net.
 #' @param datx The input data matrix.
@@ -81,6 +85,8 @@ lasso_cv = function(datx, y, seednum=31, family=family, ratio.training=0.8, fold
 #' @param lambda.grid The tuning range for the regularization parameter "lambda" of "lasso".
 #' @param alpha.grid The tuning range for the elastic-net mixing parameter "alpha".
 #' @return A list of elnet model output including MSE, and selected features.
+=======
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 
 elnet_cv = function(datx, y, seednum=31, alpha.grid, lambda.grid, family=family, 
 	                ratio.training=0.8, fold.cv=10){
@@ -137,6 +143,7 @@ elnet_cv = function(datx, y, seednum=31, alpha.grid, lambda.grid, family=family,
 ## https://uc-r.github.io/random_forests
 # OOB error is different from test error (see above website)
 
+<<<<<<< HEAD
 #' @title randomForest_cv
 #' @description Does a K-fold cross-validation for random forests.
 #' @param datx The input data matrix.
@@ -150,6 +157,8 @@ elnet_cv = function(datx, y, seednum=31, alpha.grid, lambda.grid, family=family,
 #' @param pval_thr The threshold for the estimated p value of RF importance scores.
 #' @param method.perm The permutation method for estimating the p value of RF importance scores.
 #' @return A list of RF model output including the "mtry" grid, selected features, MSE, OOB, and p-values of selected features.
+=======
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 
 randomForest_cv = function(datx, y, seednum=31, fold.cv=5, ratio.training=0.8, mtry.grid=10, num_trees=500, 
 						   pval_thr=0.05, method.perm='altmann'){
@@ -171,7 +180,11 @@ randomForest_cv = function(datx, y, seednum=31, fold.cv=5, ratio.training=0.8, m
 	# tune parameter with cross validation
 	hyper.grid <- expand.grid(mtry = mtry.grid, OOB_RMSE = 0)
 	for (i in 1:nrow(hyper.grid)){
+<<<<<<< HEAD
 	  model = ranger::ranger(y ~., data = train,
+=======
+	  model = ranger(y ~., data = train,
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 	                 num.trees=500, mtry=hyper.grid$mtry[i],
 	                 seed=seednum, importance = 'permutation')
 	  hyper.grid$OOB_RMSE[i] = sqrt(model$prediction.error)
@@ -181,12 +194,20 @@ randomForest_cv = function(datx, y, seednum=31, fold.cv=5, ratio.training=0.8, m
 
 	# permutation test on tuned random forst model to obtain chosen features
 	if (method.perm == 'altmann'){ # for all data types
+<<<<<<< HEAD
 		rf.model <- ranger::ranger(y ~., data=test, num.trees = num_trees,
+=======
+		rf.model <- ranger(y ~., data=test, num.trees = num_trees,
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 					       mtry = hyper.grid$mtry[position], importance = 'permutation')
 	    table = as.data.frame(importance_pvalues(rf.model, method = "altmann", 
                               formula = y ~ ., data = test)) 
 	} else if (method.perm == 'janitza'){ # for high dimensional data only
+<<<<<<< HEAD
 		rf.model <- ranger::ranger(y ~., data=test, num.trees = num_trees,
+=======
+		rf.model <- ranger(y ~., data=test, num.trees = num_trees,
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 					       mtry = hyper.grid$mtry[position], importance = 'impurity_corrected')
 	    table = as.data.frame(importance_pvalues(rf.model, method = "janitza", 
                               formula = y ~ ., data = test)) 		
@@ -215,6 +236,7 @@ randomForest_cv = function(datx, y, seednum=31, fold.cv=5, ratio.training=0.8, m
 dyn.load("../../code_Lin/cvs/cdmm.dll")
 source("../../code_Lin/cvs/cdmm.R")
 
+<<<<<<< HEAD
 #' @title cons_lasso_cv
 #' @description Does a K-fold cross-validation for elastic-net.
 #' @param datx The input data matrix.
@@ -223,6 +245,8 @@ source("../../code_Lin/cvs/cdmm.R")
 #' @param ratio.training The ratio of the whole data assigned for model training (default=0.8).
 #' @return A list of compLasso model output including MSE, and selected features.
 
+=======
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 cons_lasso_cv = function(datx, y, seednum, ratio.training=0.8){
 	set.seed(seednum)
 	z = datx
@@ -248,7 +272,11 @@ lasso_double_cv = function(datx, y, seednum=31, family=family, fold.cv=10, lambd
 	set.seed(seednum)
 
 	## double loop for cross-vlidation 
+<<<<<<< HEAD
 	flds <- caret::createFolds(y, k = fold.cv, list = TRUE, returnTrain = FALSE)
+=======
+	flds <- createFolds(y, k = fold.cv, list = TRUE, returnTrain = FALSE)
+>>>>>>> 36c91ddc2d7a7742a933ce6ac5bf93b876439dc5
 
 	## outer loop for estimating MSE
 	MSE = STAB = matrix(rep(0, fold.cv * length(lambda.grid)), nrow=fold.cv)
